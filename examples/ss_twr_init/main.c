@@ -64,8 +64,8 @@ static dwt_config_t config = {
 //--------------dw1000---end---------------
 
 
-#define TASK_DELAY        200           /**< Task delay. Delays a LED0 task for 200 ms */
-#define TIMER_PERIOD      2000          /**< Timer period. LED1 timer will expire after 1000 ms */
+#define TASK_DELAY        50           /**< Task delay. Delays a LED0 task for 200 ms */
+#define TIMER_PERIOD      1000          /**< Timer period. LED1 timer will expire after 1000 ms */
 
 #ifdef USE_FREERTOS
 
@@ -87,6 +87,8 @@ static void led_toggle_task_function (void * pvParameter)
   while (true)
   {
     LEDS_INVERT(BSP_LED_0_MASK);
+    LEDS_INVERT(BSP_LED_2_MASK);
+    LEDS_INVERT(BSP_LED_3_MASK);
     /* Delay a task for a given number of ticks */
     vTaskDelay(TASK_DELAY);
     /* Tasks must be implemented to never return... */
@@ -111,8 +113,8 @@ static void led_toggle_timer_callback (void * pvParameter)
 int main(void)
 {
   /* Setup some LEDs for debug Green and Blue on DWM1001-DEV */
-  LEDS_CONFIGURE(BSP_LED_0_MASK | BSP_LED_1_MASK | BSP_LED_2_MASK);
-  LEDS_ON(BSP_LED_0_MASK | BSP_LED_1_MASK | BSP_LED_2_MASK );
+  LEDS_CONFIGURE(BSP_LED_0_MASK | BSP_LED_1_MASK | BSP_LED_2_MASK | BSP_LED_3_MASK);
+  LEDS_ON(BSP_LED_0_MASK | BSP_LED_1_MASK | BSP_LED_2_MASK | BSP_LED_3_MASK);
 
   #ifdef USE_FREERTOS
     /* Create task for LED0 blinking with priority set to 2 */
